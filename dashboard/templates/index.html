@@ -1,0 +1,28 @@
+{% extends "dashboard/navigation.html" %}
+
+{% block content%}
+<title>Dashboard</title>
+<h1>Rooms: {{room}}</h1>
+
+<ul>
+  {% for room in rooms %}
+  <li>
+    <h2 style="margin-bottom: 0;">
+      {{ room }}:
+    </h2>
+    <span>
+      {{room.description}}
+    </span>
+  </li>
+  {% empty %}
+  <li>No rooms have been created yet.</li>
+  {% endfor %}
+</ul>
+
+<a href="{% url 'dashboard:new_room' %}">
+  <button>
+  Create a Room
+</button>
+</a>
+
+{% endblock content%}

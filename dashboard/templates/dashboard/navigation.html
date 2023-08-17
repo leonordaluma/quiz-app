@@ -1,0 +1,15 @@
+<div>
+    Hello, {{ user.username }}. 
+    <a href="{% url 'users:signout' %}">
+        <button>
+            logout
+            
+        </button>
+    </a>
+</div>
+<h4>
+    {{user.first_name}} {{user.last_name}}
+</h4>
+<p>{{user.email}}</p>
+
+{% block content%} {% endblock content%}

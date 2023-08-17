@@ -1,0 +1,9 @@
+{% extends "dashboard/navigation.html" %}
+
+{% block content%}
+<p>Create New Room:</p>
+<form action="{% url 'dashboard:new_room' %}" method="post">
+  {% csrf_token %} {{ form.as_p }}
+  <button name="submit">Create a Room</button>
+</form>
+{% endblock content%}
