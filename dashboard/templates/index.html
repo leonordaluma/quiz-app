@@ -1,28 +1,23 @@
-{% extends "dashboard/navigation.html" %}
+{% load widget_tweaks %} 
+{% load tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Dashboard</title>
+    {% tailwind_css %}
+  </head>
+<div class="min-h-full">
+  {% include 'dashboard/navigation.html' %}
+  {% block content %}
+  <header class="bg-white shadow">
+    <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+      <h1 class="text-3xl font-bold tracking-tight text-gray-900">Hello, {{ user.username }}</h1>
+    </div>
+  </header>
+  <main>
+    {% include 'dashboard/rooms.html' %}
+  </main>
+  {% endblock content %}
+</div>
 
-{% block content%}
-<title>Dashboard</title>
-<h1>Rooms: {{room}}</h1>
-
-<ul>
-  {% for room in rooms %}
-  <li>
-    <h2 style="margin-bottom: 0;">
-      {{ room }}:
-    </h2>
-    <span>
-      {{room.description}}
-    </span>
-  </li>
-  {% empty %}
-  <li>No rooms have been created yet.</li>
-  {% endfor %}
-</ul>
-
-<a href="{% url 'dashboard:new_room' %}">
-  <button>
-  Create a Room
-</button>
-</a>
-
-{% endblock content%}
+</html>
