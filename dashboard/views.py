@@ -1,9 +1,7 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
-from django.conf import settings
-from django.shortcuts import redirect
 
 
 from .models import Room, Test
@@ -15,6 +13,15 @@ def index(request):
         rooms = Room.objects.filter(creator=request.user)
         context = {'rooms': rooms}
         return render(request, 'index.html', context)
+
+@login_required
+def room(request, room_id):
+     room = Room.objects.get(id=room_id)
+     if room.creator != request.user:
+          raise Http404
+
+     context = {'room': room}
+     return render(request, 'dashboard/room.html', context)
 
 @login_required
 def new_room(request):

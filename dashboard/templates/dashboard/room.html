@@ -1,0 +1,15 @@
+{% extends "index.html" %} {% block content%} {% block head%}
+<title>{{room.name}}</title>
+{% endblock head%}
+
+<div>
+  <a
+    class="mt-4 font-bold text-primary-color"
+    href="{% url 'dashboard:index' %}"
+    >Back to dashboard</a
+  >
+  <div class="text-lg">{{room.name}} 
+    </div>
+    <div>{{room.description}}</div>
+</div>
+{% endblock content%}
