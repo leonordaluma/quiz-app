@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
 
-from .models import Room, Test
+from .models import Room
 from .forms import RoomForm
 # Create your views here.
 
