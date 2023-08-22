@@ -7,6 +7,9 @@ from django.contrib.auth.decorators import login_required
 from .models import Room
 from .forms import RoomForm
 # Create your views here.
+def check_user(request, creator):
+    if creator != request.user:
+        raise Http404
 
 @login_required
 def index(request):
@@ -17,8 +20,7 @@ def index(request):
 @login_required
 def room(request, room_id):
      room = Room.objects.get(id=room_id)
-     if room.creator != request.user:
-          raise Http404
+     check_user(request, room.creator)
 
      context = {'room': room}
      return render(request, 'dashboard/room.html', context)
@@ -37,3 +39,18 @@ def new_room(request):
     
     context = {'form': form}
     return render(request, 'dashboard/new_room.html', context)
+
+def edit_room(request, room_id):
+    room = Room.objects.get(id=room_id)
+    check_user(request, room.creator)
+
+    if request.method != 'POST':
+        form = RoomForm(instance=room)
+    else:
+        form = RoomForm(instance=room, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('dashboard:index'))
+    
+    context = {'room': room, 'form': form}
+    return render(request, 'dashboard/edit_room.html', context)
